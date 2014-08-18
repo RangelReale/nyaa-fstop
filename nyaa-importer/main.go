@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"github.com/RangelReale/filesharetop/importer"
 	"github.com/RangelReale/nyaa-fstop"
 	"gopkg.in/mgo.v2"
@@ -8,7 +10,17 @@ import (
 	"os"
 )
 
+var version = flag.Bool("version", false, "show version and exit")
+
 func main() {
+	flag.Parse()
+
+	// output version
+	if *version {
+		fmt.Printf("nyaa-importer version %s\n", fstopimp.VERSION)
+		os.Exit(0)
+	}
+
 	// connect to mongodb
 	session, err := mgo.Dial("localhost")
 	if err != nil {
